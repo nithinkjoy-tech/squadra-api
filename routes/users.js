@@ -120,9 +120,10 @@ router.put("/:id", [validate(validateUser)], async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-  if (!req.params.id)
-    res.status(400).send("Please include user ID in the request");
-  const deletedUser = await User.findByIdAndRemove(req.params.id);
+  let userId = req?.params?.id;
+  if (!mongoose.Types.ObjectId.isValid(userId))
+    return res.status(400).send("Invalid ID");
+  const deletedUser = await User.findByIdAndRemove(userId);
   if (!deletedUser) res.status(404).send("User with given ID does not exist");
   res.send(deletedUser);
 });
