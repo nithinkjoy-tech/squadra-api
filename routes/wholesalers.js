@@ -57,7 +57,6 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", [validate(validateWholesaler)], async (req, res) => {
-    console.log(req.body,"here")
   let existingWholesaler;
   existingWholesaler = await Wholesaler.findOne({email: req.body.email});
   if (existingWholesaler)

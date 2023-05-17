@@ -107,7 +107,7 @@ router.delete("/:id", async (req, res) => {
   let companyId = req?.params?.id;
   if (!mongoose.Types.ObjectId.isValid(companyId))
     return res.status(400).send("Invalid ID");
-    
+
   const deletedCompany = await Company.findByIdAndRemove(companyId);
   if (!deletedCompany)
     res.status(404).send("Company with given ID does not exist");
